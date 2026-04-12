@@ -83,7 +83,7 @@
           "Active state highlighting for current page"
         ],
         "customization_needed": [
-          "Replace 'YOUR FRIEND'S NAME' with actual name",
+          "Replace 'Deepti Valunjkar' with actual name",
           "Update YouTube channel URL (@yourchannel)",
           "Update Instagram handle (@yourhandle)"
         ]
@@ -369,7 +369,7 @@
     "api_quotas": "YouTube API has daily quota limits. Building once fetches all videos and caches them statically.",
     "security": ".env file should be in .gitignore (already is by default). Add API keys to Netlify separately.",
     "customization_priority": [
-      "1. Replace 'YOUR FRIEND'S NAME' everywhere",
+      "1. Replace 'Deepti Valunjkar' everywhere",
       "2. Update all social media URLs",
       "3. Update email and phone in contact page",
       "4. Rewrite bio in about.astro",
@@ -427,5 +427,5 @@
     "14. Guide through deployment to Netlify"
   ],
 
-  "full_file_contents_reference": "All complete file contents are available in the files shared in the previous chat. Each file is fully written and ready to be created as-is, only requiring customization of placeholders like 'YOUR FRIEND'S NAME', email addresses, and social media URLs."
+  "full_file_contents_reference": "All complete file contents are available in the files shared in the previous chat. Each file is fully written and ready to be created as-is, only requiring customization of placeholders like 'Deepti Valunjkar', email addresses, and social media URLs."
 }

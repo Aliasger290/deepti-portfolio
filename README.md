@@ -81,7 +81,7 @@ PUBLIC_YOUTUBE_CHANNEL_ID=your_channel_id_here
 **Update the following in the files:**
 
 **Header.astro:**
-- Line 8: Change "YOUR FRIEND'S NAME" to actual name
+- Line 8: Change "Deepti Valunjkar" to actual name
 - Line 32: Update YouTube channel URL
 - Line 41: Update Instagram handle URL
 
