@@ -1,9 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
-
-const API_KEY = import.meta.env.PUBLIC_YOUTUBE_API_KEY;
-const CHANNEL_ID = import.meta.env.PUBLIC_YOUTUBE_CHANNEL_ID;
 ---
 
 <Layout
@@ -70,7 +67,11 @@ const CHANNEL_ID = import.meta.env.PUBLIC_YOUTUBE_CHANNEL_ID;
 </Layout>
 
 <!-- Client-side video fetching -->
-<script define:vars={{ API_KEY, CHANNEL_ID }}>
+<script>
+  // These PUBLIC_ vars are statically inlined by Vite at build time
+  const API_KEY = import.meta.env.PUBLIC_YOUTUBE_API_KEY;
+  const CHANNEL_ID = import.meta.env.PUBLIC_YOUTUBE_CHANNEL_ID;
+
   async function loadVideos() {
     const loadingEl = document.getElementById("videos-loading");
     const gridEl = document.getElementById("videos-grid");
