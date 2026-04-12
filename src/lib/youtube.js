@@ -1,37 +1,26 @@
 const API_KEY = import.meta.env.PUBLIC_YOUTUBE_API_KEY;
 const CHANNEL_ID = import.meta.env.PUBLIC_YOUTUBE_CHANNEL_ID;
 
-// Add this at the top level so it runs during build
-if (typeof window === 'undefined') {
-  console.log('🔍 BUILD TIME - YouTube Config:');
-  console.log('   API_KEY exists:', !!API_KEY);
-  console.log('   API_KEY value:', API_KEY ? `${API_KEY.substring(0, 10)}...` : 'UNDEFINED');
-  console.log('   CHANNEL_ID exists:', !!CHANNEL_ID);
-  console.log('   CHANNEL_ID value:', CHANNEL_ID || 'UNDEFINED');
-}
-
-export async function getChannelVideos(maxResults = 20) {
+export async function getChannelVideos(maxResults = 24) {
   if (!API_KEY || !CHANNEL_ID) {
-    console.error('❌ MISSING CREDENTIALS - Videos will not load');
-    console.error('   PUBLIC_YOUTUBE_API_KEY:', API_KEY ? '✓ Set' : '✗ MISSING');
-    console.error('   PUBLIC_YOUTUBE_CHANNEL_ID:', CHANNEL_ID ? '✓ Set' : '✗ MISSING');
+    console.warn("YouTube API key or Channel ID not set.");
     return [];
   }
 
   try {
-    // Step 1: Get the uploads playlist ID from the channel
+    // Step 1: Get uploads playlist ID from channel
     const channelRes = await fetch(
-      `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${CHANNEL_ID}&key=${API_KEY}`
+      `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${CHANNEL_ID.trim()}&key=${API_KEY.trim()}`
     );
     const channelData = await channelRes.json();
 
     if (channelData.error) {
-      console.error('❌ YouTube API Error:', channelData.error.message);
+      console.error("YouTube API Error:", channelData.error.message);
       return [];
     }
 
     if (!channelData.items || channelData.items.length === 0) {
-      console.error("❌ Channel not found. Check your CHANNEL_ID.");
+      console.error("Channel not found. CHANNEL_ID:", CHANNEL_ID);
       return [];
     }
 
@@ -40,21 +29,16 @@ export async function getChannelVideos(maxResults = 20) {
 
     // Step 2: Get videos from uploads playlist
     const playlistRes = await fetch(
-      `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${uploadsPlaylistId}&maxResults=${maxResults}&key=${API_KEY}`
+      `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${uploadsPlaylistId}&maxResults=${maxResults}&key=${API_KEY.trim()}`
     );
     const playlistData = await playlistRes.json();
 
     if (playlistData.error) {
-      console.error('❌ YouTube API Error:', playlistData.error.message);
+      console.error("YouTube Playlist Error:", playlistData.error.message);
       return [];
     }
 
-    if (!playlistData.items) {
-      console.error("❌ No videos found in playlist.");
-      return [];
-    }
-
-    console.log(`✅ Fetched ${playlistData.items.length} videos`);
+    if (!playlistData.items) return [];
 
     return playlistData.items.map((item) => {
       const snippet = item.snippet;
@@ -78,7 +62,7 @@ export async function getChannelVideos(maxResults = 20) {
       };
     });
   } catch (error) {
-    console.error("❌ Error fetching YouTube videos:", error);
+    console.error("Error fetching YouTube videos:", error);
     return [];
   }
 }
