@@ -1,0 +1,431 @@
+{
+  "project_info": {
+    "project_name": "Film & Video Editor Portfolio Website",
+    "project_type": "Static website with YouTube integration",
+    "framework": "Astro + Tailwind CSS",
+    "deployment": "Netlify (free hosting)",
+    "project_location": "D:\\Work\\deepti_portfolio\\cinematographer-portfolio"
+  },
+  
+  "conversation_summary": {
+    "user_role": "Product manager with Shopify development experience, helping a friend build a portfolio",
+    "friend_profile": "Film and video editor who wants a portfolio website",
+    "reference_website": "https://www.chetanovhal.com (built on Wix)",
+    "key_requirements": [
+      "YouTube video integration - auto-fetch videos from channel",
+      "Embedded video player on the site (not just links to YouTube)",
+      "Automatic sync when new videos uploaded to YouTube",
+      "About me page with bio and experience",
+      "Work portfolio page showing video grid",
+      "Contact form with email/phone",
+      "Mobile responsive design",
+      "Free hosting solution"
+    ],
+    "technical_decisions": [
+      "Chose custom static site over Wix/Webflow for free hosting",
+      "Using Astro framework for static site generation",
+      "Tailwind CSS for styling",
+      "YouTube Data API v3 for fetching videos",
+      "Netlify for hosting and form handling",
+      "No CMS initially (can add Decap CMS later if needed)"
+    ]
+  },
+
+  "current_status": {
+    "completed": [
+      "Astro project initialized at D:\\Work\\deepti_portfolio\\cinematographer-portfolio",
+      "Tailwind CSS integrated (npx astro add tailwind)",
+      "Node.js upgraded to v22+ (was v20.4.0)",
+      "Project structure created with src/pages, src/styles folders",
+      "All code files designed and ready to be created"
+    ],
+    "pending": [
+      "Create actual files in the project directory",
+      "User needs to get YouTube API credentials",
+      "User needs to get YouTube Channel ID",
+      "Create .env file with API credentials",
+      "Customize content (names, URLs, bio, contact info)",
+      "Test locally with npm run dev",
+      "Deploy to Netlify",
+      "Configure environment variables on Netlify"
+    ]
+  },
+
+  "files_to_create": {
+    "environment": {
+      "path": ".env",
+      "purpose": "Store YouTube API credentials",
+      "content_template": "PUBLIC_YOUTUBE_API_KEY=your_api_key_here\nPUBLIC_YOUTUBE_CHANNEL_ID=your_channel_id_here",
+      "notes": "User needs to fill this after getting credentials from Google Cloud Console"
+    },
+    
+    "layouts": [
+      {
+        "path": "src/layouts/Layout.astro",
+        "purpose": "Main layout wrapper for all pages",
+        "key_features": [
+          "HTML structure with meta tags",
+          "Google Fonts (Inter) integration",
+          "Global styles for black background theme",
+          "Responsive viewport settings"
+        ]
+      }
+    ],
+    
+    "components": [
+      {
+        "path": "src/components/Header.astro",
+        "purpose": "Fixed navigation header with links and social icons",
+        "key_features": [
+          "Fixed header with backdrop blur",
+          "Navigation: Work, About, Contact",
+          "Social media links (YouTube, Instagram)",
+          "Active state highlighting for current page"
+        ],
+        "customization_needed": [
+          "Replace 'YOUR FRIEND'S NAME' with actual name",
+          "Update YouTube channel URL (@yourchannel)",
+          "Update Instagram handle (@yourhandle)"
+        ]
+      },
+      {
+        "path": "src/components/VideoGrid.astro",
+        "purpose": "Display YouTube videos in responsive grid with modal player",
+        "key_features": [
+          "Responsive grid layout (auto-fill minmax)",
+          "Video thumbnails with hover effects",
+          "Modal popup for embedded video playback",
+          "Play button overlay on hover",
+          "Keyboard support (ESC to close)",
+          "Click outside to close modal"
+        ],
+        "technical_details": [
+          "Uses YouTube embed URLs for playback",
+          "Lazy loading for thumbnails",
+          "Client-side JavaScript for modal interactions",
+          "Autoplay when modal opens"
+        ]
+      }
+    ],
+    
+    "pages": [
+      {
+        "path": "src/pages/index.astro",
+        "purpose": "Homepage with hero section and video grid",
+        "key_features": [
+          "Hero section with name and tagline",
+          "Fetches videos at build time using getChannelVideos()",
+          "Displays VideoGrid component with fetched videos",
+          "Shows error message if no videos found",
+          "Footer with copyright"
+        ],
+        "customization_needed": [
+          "Update name in hero (line 13)",
+          "Update description/tagline (lines 16-19)",
+          "Update footer name"
+        ]
+      },
+      {
+        "path": "src/pages/about.astro",
+        "purpose": "About page with bio, experience, and skills",
+        "key_features": [
+          "Two-column layout: image + bio",
+          "Quick stats (years experience, projects)",
+          "Skills tags (Premiere Pro, After Effects, etc.)",
+          "Experience timeline",
+          "CTA button to contact page"
+        ],
+        "customization_needed": [
+          "Replace placeholder profile image",
+          "Update bio text completely",
+          "Update stats (years, projects)",
+          "Update skills list",
+          "Update experience section",
+          "Add real email, phone numbers"
+        ]
+      },
+      {
+        "path": "src/pages/contact.astro",
+        "purpose": "Contact page with Netlify form and contact info",
+        "key_features": [
+          "Netlify Forms integration (serverless)",
+          "Form fields: name, email, project type, message",
+          "Honeypot spam protection",
+          "Contact info cards (email, phone)",
+          "Social media links"
+        ],
+        "customization_needed": [
+          "Update email address (multiple places)",
+          "Update phone number",
+          "Update social media URLs (YouTube, Instagram, LinkedIn)"
+        ],
+        "technical_notes": [
+          "Form automatically works when deployed to Netlify",
+          "Submissions appear in Netlify dashboard under Forms",
+          "No backend code needed"
+        ]
+      }
+    ],
+    
+    "lib": [
+      {
+        "path": "src/lib/youtube.js",
+        "purpose": "YouTube API integration functions",
+        "key_features": [
+          "getChannelVideos(maxResults) - fetch videos from channel",
+          "Uses YouTube Data API v3",
+          "Fetches uploads playlist",
+          "Returns formatted video objects with thumbnails, titles, embed URLs",
+          "Error handling and logging"
+        ],
+        "api_details": {
+          "endpoint_1": "https://www.googleapis.com/youtube/v3/channels - Get channel details",
+          "endpoint_2": "https://www.googleapis.com/youtube/v3/playlistItems - Get videos from uploads playlist",
+          "required_env_vars": [
+            "PUBLIC_YOUTUBE_API_KEY",
+            "PUBLIC_YOUTUBE_CHANNEL_ID"
+          ]
+        },
+        "video_object_structure": {
+          "id": "YouTube video ID",
+          "title": "Video title",
+          "description": "Video description",
+          "thumbnail": {
+            "default": "120x90 URL",
+            "medium": "320x180 URL",
+            "high": "480x360 URL",
+            "maxres": "1280x720 URL (if available)"
+          },
+          "publishedAt": "ISO date string",
+          "channelTitle": "Channel name",
+          "embedUrl": "https://www.youtube.com/embed/{videoId}",
+          "watchUrl": "https://www.youtube.com/watch?v={videoId}"
+        }
+      }
+    ]
+  },
+
+  "youtube_api_setup": {
+    "user_responsibility": "User will handle this part",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Go to Google Cloud Console",
+        "url": "https://console.cloud.google.com/",
+        "details": "Create new project or select existing"
+      },
+      {
+        "step": 2,
+        "action": "Enable YouTube Data API v3",
+        "details": "Search for 'YouTube Data API v3' in APIs & Services and enable it"
+      },
+      {
+        "step": 3,
+        "action": "Create API Key",
+        "path": "Credentials → Create Credentials → API Key",
+        "details": "Copy the generated API key"
+      },
+      {
+        "step": 4,
+        "action": "Get YouTube Channel ID",
+        "methods": [
+          "Method 1: Go to channel, look at URL: youtube.com/channel/{CHANNEL_ID}",
+          "Method 2: Use tool: https://commentpicker.com/youtube-channel-id.php"
+        ],
+        "details": "Channel ID starts with 'UC...'"
+      },
+      {
+        "step": 5,
+        "action": "Add to .env file",
+        "content": "PUBLIC_YOUTUBE_API_KEY=paste_key_here\nPUBLIC_YOUTUBE_CHANNEL_ID=paste_id_here"
+      }
+    ]
+  },
+
+  "deployment_instructions": {
+    "platform": "Netlify",
+    "why_netlify": "Free tier, automatic HTTPS, form handling, easy deployment",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Push to GitHub",
+        "commands": [
+          "git init",
+          "git add .",
+          "git commit -m 'Initial commit'",
+          "git branch -M main",
+          "git remote add origin https://github.com/USERNAME/REPO.git",
+          "git push -u origin main"
+        ]
+      },
+      {
+        "step": 2,
+        "action": "Deploy on Netlify",
+        "url": "https://netlify.com",
+        "details": [
+          "Sign up with GitHub",
+          "Click 'Add new site' → 'Import an existing project'",
+          "Select GitHub repo",
+          "Build settings: Build command = 'npm run build', Publish directory = 'dist'",
+          "Add environment variables: PUBLIC_YOUTUBE_API_KEY and PUBLIC_YOUTUBE_CHANNEL_ID",
+          "Click 'Deploy site'"
+        ]
+      },
+      {
+        "step": 3,
+        "action": "Verify deployment",
+        "checks": [
+          "Videos load on homepage",
+          "Contact form works (submit test)",
+          "Check Netlify dashboard → Forms for submission"
+        ]
+      }
+    ],
+    "optional_auto_rebuild": {
+      "purpose": "Auto-update site when new YouTube videos uploaded",
+      "steps": [
+        "Netlify: Build & deploy → Build hooks → Create build hook",
+        "Use cron-job.org to schedule daily rebuilds",
+        "Or use Netlify scheduled functions (paid plans)"
+      ]
+    }
+  },
+
+  "design_system": {
+    "color_scheme": {
+      "background": "#000000 (black)",
+      "text_primary": "#FFFFFF (white)",
+      "text_secondary": "#9CA3AF (gray-400)",
+      "accent": "#EF4444 (red-600 for play button)",
+      "borders": "rgba(255, 255, 255, 0.1)"
+    },
+    "typography": {
+      "font_family": "Inter (Google Fonts)",
+      "headings": "Bold, tight tracking",
+      "body": "Regular weight"
+    },
+    "spacing": {
+      "container": "mx-auto px-6",
+      "sections": "py-16",
+      "gaps": "gap-8, gap-12"
+    },
+    "components": {
+      "buttons": "px-8 py-4 bg-white text-black rounded-lg hover:bg-gray-200",
+      "cards": "bg-white/5 rounded-lg hover:bg-white/10",
+      "inputs": "bg-white/5 border border-white/10 rounded-lg focus:border-white/30"
+    }
+  },
+
+  "tech_stack_details": {
+    "astro": {
+      "version": "Latest (installed via npm create astro@latest)",
+      "why": "Fast static site generation, zero JS by default, SEO friendly",
+      "build_output": "Static HTML/CSS/JS in dist/ folder"
+    },
+    "tailwind": {
+      "integration": "Via npx astro add tailwind",
+      "config": "Automatically configured in astro.config.mjs",
+      "usage": "Utility classes throughout components"
+    },
+    "youtube_api": {
+      "version": "v3",
+      "quota": "10,000 units/day (free tier)",
+      "cost_per_request": "~1 unit for channel, ~1 unit for playlist",
+      "build_time_fetch": "Videos fetched during build, not on client side"
+    }
+  },
+
+  "file_structure_complete": {
+    "tree": [
+      "cinematographer-portfolio/",
+      "├── .env                          (CREATE - API credentials)",
+      "├── .gitignore                   (EXISTS - from Astro)",
+      "├── astro.config.mjs              (EXISTS - Tailwind configured)",
+      "├── package.json                  (EXISTS)",
+      "├── package-lock.json             (EXISTS)",
+      "├── tsconfig.json                 (EXISTS)",
+      "├── README.md                     (EXISTS - Astro default)",
+      "├── public/                       (EXISTS)",
+      "│   └── favicon.svg               (EXISTS - Astro default)",
+      "└── src/",
+      "    ├── env.d.ts                  (EXISTS)",
+      "    ├── layouts/",
+      "    │   └── Layout.astro          (CREATE)",
+      "    ├── components/",
+      "    │   ├── Header.astro          (CREATE)",
+      "    │   └── VideoGrid.astro       (CREATE)",
+      "    ├── pages/",
+      "    │   ├── index.astro           (CREATE - replace default)",
+      "    │   ├── about.astro           (CREATE)",
+      "    │   └── contact.astro         (CREATE)",
+      "    ├── lib/",
+      "    │   └── youtube.js            (CREATE)",
+      "    └── styles/",
+      "        └── global.css            (EXISTS - from Tailwind)"
+    ]
+  },
+
+  "important_notes": {
+    "api_quotas": "YouTube API has daily quota limits. Building once fetches all videos and caches them statically.",
+    "security": ".env file should be in .gitignore (already is by default). Add API keys to Netlify separately.",
+    "customization_priority": [
+      "1. Replace 'YOUR FRIEND'S NAME' everywhere",
+      "2. Update all social media URLs",
+      "3. Update email and phone in contact page",
+      "4. Rewrite bio in about.astro",
+      "5. Update experience section in about.astro",
+      "6. Replace profile image placeholder"
+    ],
+    "testing": "Always run 'npm run dev' locally before deploying",
+    "builds": "Run 'npm run build' to test production build locally"
+  },
+
+  "commands_reference": {
+    "development": "npm run dev (starts local server at localhost:4321)",
+    "build": "npm run build (creates production build in dist/)",
+    "preview": "npm run preview (preview production build locally)",
+    "astro": "npx astro --help (Astro CLI commands)"
+  },
+
+  "troubleshooting": {
+    "videos_not_loading": [
+      "Check .env file exists and has correct values",
+      "Verify YouTube Data API v3 is enabled in Google Cloud",
+      "Check API key has no restrictions (or allows your domain)",
+      "Verify Channel ID is correct (starts with UC...)",
+      "Check browser console for error messages",
+      "Test API manually: https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=CHANNEL_ID&key=API_KEY"
+    ],
+    "build_errors": [
+      "Delete node_modules and package-lock.json, run npm install",
+      "Ensure Node.js v22+ is installed",
+      "Check for syntax errors in .astro files",
+      "Verify Tailwind is properly configured"
+    ],
+    "netlify_deploy_fails": [
+      "Check build settings: command='npm run build', directory='dist'",
+      "Verify environment variables are set in Netlify dashboard",
+      "Check deploy logs in Netlify for specific errors",
+      "Ensure package.json has all dependencies"
+    ]
+  },
+
+  "next_immediate_actions_for_claude_code": [
+    "1. Navigate to: D:\\Work\\deepti_portfolio\\cinematographer-portfolio",
+    "2. Create src/layouts/Layout.astro with the provided code",
+    "3. Create src/components/Header.astro with the provided code",
+    "4. Create src/components/VideoGrid.astro with the provided code",
+    "5. Create src/lib/youtube.js with the provided code",
+    "6. Create/replace src/pages/index.astro with the provided code",
+    "7. Create src/pages/about.astro with the provided code",
+    "8. Create src/pages/contact.astro with the provided code",
+    "9. Create .env.example as template (don't create actual .env - user will do it)",
+    "10. Verify all files are created correctly",
+    "11. Wait for user to add YouTube API credentials to .env",
+    "12. Help user test with npm run dev",
+    "13. Assist with customization (names, URLs, content)",
+    "14. Guide through deployment to Netlify"
+  ],
+
+  "full_file_contents_reference": "All complete file contents are available in the files shared in the previous chat. Each file is fully written and ready to be created as-is, only requiring customization of placeholders like 'YOUR FRIEND'S NAME', email addresses, and social media URLs."
+}
