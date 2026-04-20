@@ -1,6 +1,10 @@
 // All portfolio projects in display order.
 // source: "youtube" | "drive"
 // sourceId: YouTube video ID or Google Drive file ID
+// customThumbnail (optional): path to an image in /public/ e.g. "/thumbs/tohfa.jpg"
+//   - For Drive videos, upload a custom thumbnail image to public/thumbs/
+//     and set customThumbnail: "/thumbs/filename.jpg" on that project.
+//   - YouTube thumbnails are fetched automatically, no action needed.
 //
 // IMPORTANT for Drive videos:
 // Each Drive file must be shared as "Anyone with the link can view"
@@ -81,8 +85,13 @@ export function getEmbedUrl(project) {
 }
 
 export function getThumbnailUrl(project) {
+  // Custom thumbnail takes priority (upload image to /public/thumbs/)
+  if (project.customThumbnail) {
+    return project.customThumbnail;
+  }
   if (project.source === "youtube") {
     return `https://img.youtube.com/vi/${project.sourceId}/maxresdefault.jpg`;
   }
+  // Drive: auto-generates from first frame of video
   return `https://drive.google.com/thumbnail?id=${project.sourceId}&sz=w1280`;
 }
