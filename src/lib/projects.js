@@ -17,6 +17,7 @@ export const projects = [
     role: "Editor",
     source: "drive",
     sourceId: "1QrS5Q5dz2ih9lD9UMDIUZBqO21vO4-D0",
+    customThumbnail: "/thumbs/a-place-to-itself.jpeg",
   },
   {
     title: "Tohfa",
@@ -25,6 +26,7 @@ export const projects = [
     note: "Official selection — Indian Film Festival Stuttgart & ImagineIndia Film Festival, Madrid 2025",
     source: "drive",
     sourceId: "16yKSezQpg7js-B9om9LE6IDM4MSw2WLO",
+    customThumbnail: "/thumbs/tohfa.jpeg",
   },
   {
     title: "Ghutan",
@@ -53,6 +55,7 @@ export const projects = [
     role: "Editor",
     source: "drive",
     sourceId: "1tmaZtJJrSl4TxOWizt8VwN9iPDDpi8z9",
+    customThumbnail: "/thumbs/mia.jpeg",
   },
   {
     title: "Kathakar: Mahashivratri Special",
@@ -60,6 +63,7 @@ export const projects = [
     role: "Editor",
     source: "drive",
     sourceId: "1DREg9hlwMXVtUXpoC5DB3c8fuMPqmTzA",
+    customThumbnail: "/thumbs/kathakar.jpeg",
   },
   {
     title: "Yuj: Itihaas Yoga Ka",
@@ -67,6 +71,7 @@ export const projects = [
     role: "Editor",
     source: "drive",
     sourceId: "1DXNNY7pV3K06h0dbokuZbJQTzZTct0Q9",
+    customThumbnail: "/thumbs/yuj.jpeg",
   },
   {
     title: "Kokonuts: The Happy Playce!",
@@ -74,6 +79,7 @@ export const projects = [
     role: "Editor",
     source: "drive",
     sourceId: "1IMKgreLbE-TP2h6w8RBYrSk4Nd6vC9Lm",
+    customThumbnail: "/thumbs/kokonuts.jpeg",
   },
 ];
 
